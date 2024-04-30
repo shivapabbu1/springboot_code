@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
+
 @EnableWebSecurity
 public class config  {
 
@@ -24,7 +24,7 @@ public class config  {
                  .authorizeHttpRequests((authorize) -> authorize
                      .requestMatchers("/api/public").permitAll()
                      .requestMatchers("/api/private").authenticated()
-                     .requestMatchers("/api/private-scoped").hasAuthority("SCOPE_read:messages")
+                     .requestMatchers("/api/private-scoped").hasAuthority("SCOPE_read:message")
                  )
                  .cors(withDefaults())
                  .oauth2ResourceServer(oauth2 -> oauth2

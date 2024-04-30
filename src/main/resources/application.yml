@@ -1,0 +1,11 @@
+okta:
+  oauth2:
+    audience: https://localhost:3003
+    issuer: https://shiva2017.us.auth0.com
+    client-id: WirEblU6rEY2wGgl9cDnGXyBWe54UL0d
+    client-secret: nLT3PwLWwsL5vGMIzVtytlYTXssASFmCmsDm96lHMqh_yRvQgaiBjjy0n9VpvJHN
+spring:
+  application:
+    name: Auth0_demo-1
+server:
+  port: 3003

@@ -9,23 +9,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-// For simplicity of this sample, allow all origins. Real applications should configure CORS for their use case.
+
 @CrossOrigin(origins = "*")
 public class AuthController {
 
-    @GetMapping(value = "/public")
-    public ResponseDto publicEndpoint() {
-        return new ResponseDto("All good. You DO NOT need to be authenticated to call /api/public.");
-    }
+	 @GetMapping("/public")
+	    public ResponseEntity<ResponseDto> publicEndpoint() {
+	        ResponseDto responseDto = new ResponseDto("All good. You DO NOT need to be authenticated to call /api/public.");
+	        return ResponseEntity.ok(responseDto);
+	    }
 
     @GetMapping(value = "/private")
-    public ResponseDto privateEndpoint() {
-        return new ResponseDto("All good. You can see this because you are Authenticated.");
+    public ResponseEntity<ResponseDto> privateEndpoint() {
+    	   ResponseDto responseDto = new ResponseDto("All good. You can see this because you are Authenticated.");
+    	   return ResponseEntity.ok(responseDto);
     }
 
     @GetMapping(value = "/private-scoped")
     
-    public ResponseDto privateScopedEndpoint() {
-        return new ResponseDto("All good. You can see this because you are Authenticated with a Token granted the 'read:messages' scope");
+    public ResponseEntity<ResponseDto>  privateScopedEndpoint() {
+    	 ResponseDto responseDto = new ResponseDto("All good. You can see this because you are Authenticated with a Token granted the 'read:messages' scope");
+    	   return ResponseEntity.ok(responseDto);
     }
 }
