@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: AuthDemo_Authenticated
+server:
+   port: 3003
+   
+okta:
+   oauth2:
+    issuer: https://shiva2017.us.auth0.com/
+    audience: https://localhost:3003
