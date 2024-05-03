@@ -1,11 +1,12 @@
 package com.WebSecurityJDBC.demo.Config;
 
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,29 +24,32 @@ public class SecurityConfig {
     private DataSource dataSource;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf)->csrf.disable())
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    	httpSecurity.csrf((csrf)->csrf.disable())
             .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                .requestMatchers("/root","/log").permitAll()  
+                .requestMatchers("/home","/login").permitAll() 
+                .requestMatchers("/saveUser").permitAll()
                 .requestMatchers("/admin").hasAuthority("ADMIN")
-                .requestMatchers("/user").hasAuthority("USER")
+//                .requestMatchers("/user").access("!hasRole('ADMIN')")
+                .requestMatchers("/user").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(
-                (form) -> form.loginPage("/log")
+                (form) -> form.loginPage("/login")
                 .successHandler((request, response, authentication) -> {
                     if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
                         response.sendRedirect("/admin");
                     } else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"))) {
                         response.sendRedirect("/user");
                     } else {
-                        response.sendRedirect("/root");
+                        response.sendRedirect("/home");
                     }
                 })
-            )
-            .httpBasic(Customizer.withDefaults());
+            );
+    	
+//            .httpBasic(Customizer.withDefaults());
 
-        return http.build();
+        return httpSecurity.build();
     }
 
     @Bean
@@ -60,4 +64,9 @@ public class SecurityConfig {
          userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, role as authority FROM stu_table WHERE username = ?");
          return userDetailsManager;
     }
+    
+   
+    
+    
+    
 }

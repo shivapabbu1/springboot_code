@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Save User</title>
+</head>
+<body>
+    <h1>Save User</h1>
+    <form th:action="@{/saveUser}" th:object="${user}" method="post">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" th:field="*{username}" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" required>
+        </div>
+        <div>
+            <label for="role">Role:</label>
+            <input type="text" id="role" th:field="*{role}" required>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+</body>
+</html>
