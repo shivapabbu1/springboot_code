@@ -1,2 +1,5 @@
 This is the content of the new file
+<<<<<<< HEAD
  added some more contengt
+=======
+>>>>>>> 13bcd9eab8e3a84ecd05787ec100cf2da1a6ad7f
