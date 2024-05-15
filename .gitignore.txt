@@ -6,9 +6,10 @@
 # Ignore logs and temporary files
 *.log
 *.tmp
+sample.txt
 
 # Ignore directories
 /build/
 /dist/
 /node_modules/
-/sample.txt
+
