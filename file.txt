@@ -1,1 +1,1 @@
-"Hello World chnaged here by a collabartor" 
+This is the content of the new file
