@@ -8,3 +8,4 @@ i am edited in remote mode please pull me to your local
 added more one line to apply stash 
 -->here you are in working
 
+ added one line for demo of git work folw
